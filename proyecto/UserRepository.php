@@ -15,6 +15,7 @@ class UserRepository implements UserRepositoryInterface {
 
     public function guardar(User $user): bool {
         $stmt = $this->pdo->prepare("INSERT INTO usuarios (id,nombre, correo_electronico, contrasena) VALUES (:id, :nombre, :correo_electronico, :contrasena)");
+        $stmt->bindValue(':id', $user->newId());
         $stmt->bindValue(':nombre', $user->getNombre());
         $stmt->bindValue(':correo_electronico', $user->getCorreoElectronico());
         $stmt->bindValue(':contrasena', $user->getContrasena());
